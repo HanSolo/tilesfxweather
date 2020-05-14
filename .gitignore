@@ -1,0 +1,9 @@
+/.idea
+/.gradle
+.DS_Store
+/build
+/src/main/java/eu/hansolo/tilesfxweather/Test.java
+/out
+/local.properties
+/classes
+/tilesfxweather.iml

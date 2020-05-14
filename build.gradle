@@ -106,7 +106,7 @@ artifacts {
 }
 
 def pomConfig = {
-    name 'tilesfx'
+    name 'tilesfxweather'
     // Description won't be used when creating the pom file automatically.
     // So I've added it manually in the pom.withXml{} section in the publishing task
     //description 'TilesFX is a library containing tiles for dashboards'

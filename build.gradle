@@ -15,7 +15,7 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'net.nemerosa.versioning' version '2.10.0'
-    id 'com.jfrog.bintray' version '1.8.4'
+    id 'com.jfrog.bintray' version '1.8.5'
     id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
@@ -36,7 +36,7 @@ ext {
 }
 
 dependencies {
-    implementation 'eu.hansolo:tilesfx:11.33'
+    implementation 'eu.hansolo:tilesfx:11.34'
     implementation ('com.googlecode.json-simple:json-simple:1.1.1') {
         exclude group: 'org.hamcrest', module: 'hamcrest-core'
     }
@@ -111,7 +111,7 @@ def pomConfig = {
     // So I've added it manually in the pom.withXml{} section in the publishing task
     //description 'TilesFX is a library containing tiles for dashboards'
     url 'https://github.com/HanSolo/tilesfxweather/wiki'
-    inceptionYear '2016'
+    inceptionYear '2020'
     licenses {
         license([:]) {
             name 'The Apache Software License, Version 2.0'
@@ -154,6 +154,9 @@ publishing {
 
 if (!project.hasProperty('bintrayUsername')) ext.bintrayUsername = ''
 if (!project.hasProperty('bintrayApiKey')) ext.bintrayApiKey = ''
+if (!project.hasProperty('sonatypeUsername')) ext.sonatypeUsername = ''
+if (!project.hasProperty('sonatypePassword')) ext.sonatypePassword = ''
+
 
 bintray {
     user = project.bintrayUsername
@@ -165,10 +168,20 @@ bintray {
         name                  = project.name
         desc                  = description
         licenses              = ['Apache-2.0']
-        labels                = ['javafx']
+        labels                = ['javafx', 'java']
         websiteUrl            = 'https://github.com/HanSolo/tilesfxweather/wiki'
         issueTrackerUrl       = 'https://github.com/HanSolo/tilesfxweather/issues'
         vcsUrl                = 'git@github.com:HanSolo/tilesfxweather.git'
         publicDownloadNumbers = true
+        version {
+            name   = project.version
+            vcsTag = project.version
+            mavenCentralSync {
+                sync = true
+                user = project.sonatypeUsername
+                password = project.sonatypePassword
+                close = '1'
+            }
+        }
     }
 }
